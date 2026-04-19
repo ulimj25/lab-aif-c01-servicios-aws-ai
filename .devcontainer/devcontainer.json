@@ -4,9 +4,7 @@
 
   "features": {
     "ghcr.io/devcontainers/features/aws-cli:1": {},
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "20"
-    }
+    "ghcr.io/devcontainers/features/node:1": { "version": "20" }
   },
 
   "customizations": {
@@ -20,15 +18,17 @@
         "editor.fontSize": 14,
         "editor.wordWrap": "on",
         "files.autoSave": "afterDelay",
-        "workbench.startupEditor": "readme",
-        "security.workspace.trust.enabled": false
+        "workbench.startupEditor": "none",
+        "workbench.tips.enabled": false,
+        "security.workspace.trust.enabled": false,
+        "security.workspace.trust.startupPrompt": "never"
       }
     }
   },
 
-  "postCreateCommand": "pip install boto3 pandas requests jupyter ipython && (curl -fsSL https://code-server.dev/install.sh | sh -s -- --method=standalone --prefix=/home/vscode/.local 2>/dev/null || true)",
+  "postCreateCommand": "pip install boto3 pandas requests && (curl -fsSL https://code-server.dev/install.sh | sh -s -- --method=standalone --prefix=/home/vscode/.local 2>/dev/null || true)",
   "postStartCommand": "/home/vscode/.local/bin/code-server --auth none --port 13337 --host 0.0.0.0 > /tmp/code-server.log 2>&1 &",
-  "postAttachCommand": "echo 'Lab environment ready! Open ejercicios/ to begin.'",
+  "postAttachCommand": "echo '✅ Lab Servicios AWS AI listo. Abre ejercicios/ para comenzar.'",
 
   "containerEnv": {
     "AWS_DEFAULT_REGION": "us-east-1",
@@ -37,11 +37,7 @@
     "LAB_BRIDGE_ENABLED": "true"
   },
 
-  "hostRequirements": {
-    "memory": "2gb",
-    "cpus": 1
-  },
-
+  "hostRequirements": { "memory": "2gb", "cpus": 1 },
   "remoteUser": "vscode",
   "workspaceFolder": "/workspaces/lab"
 }

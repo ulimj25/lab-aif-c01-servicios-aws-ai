@@ -2,7 +2,6 @@
   "lab_id": "662e5331a0ef4ba6993b8",
   "lab_name": "LAB: Servicios AWS AI",
   "version": "1.0",
-
   "lab_objectives": [
     "Usar Amazon Comprehend para analisis de sentimiento, deteccion de entidades y PII en textos en espanol",
     "Usar Amazon Rekognition para deteccion de objetos, rostros, texto en imagenes y moderacion de contenido",
@@ -11,7 +10,6 @@
     "Disenar pipelines que encadenen multiples servicios de AI de AWS",
     "Comprender que estos servicios son fully managed y no requieren entrenamiento de modelos"
   ],
-
   "exercises": [
     {
       "id": "ex01",
@@ -19,13 +17,18 @@
       "file": "ejercicios/ex01_comprehend_cli.sh",
       "service": "Amazon Comprehend",
       "difficulty": "GUIADO",
-      "key_apis": ["detect-sentiment", "detect-dominant-language", "batch-detect-sentiment"],
+      "key_apis": [
+        "detect-sentiment",
+        "detect-dominant-language",
+        "batch-detect-sentiment"
+      ],
       "common_errors": [
         "Olvidar --language-code es",
         "No poner comillas alrededor del texto",
         "Confundir detect-sentiment con detect-dominant-language"
       ],
-      "completion_criteria": "El estudiante ejecuto los 3 comandos y obtuvo resultados JSON con sentimiento y scores"
+      "completion_criteria": "El estudiante ejecuto los 3 comandos y obtuvo resultados JSON con sentimiento y scores",
+      "stepOrder": 1
     },
     {
       "id": "ex02",
@@ -33,14 +36,18 @@
       "file": "ejercicios/ex02_comprehend_entities.py",
       "service": "Amazon Comprehend",
       "difficulty": "GUIADO",
-      "key_apis": ["detect_entities", "detect_pii_entities"],
+      "key_apis": [
+        "detect_entities",
+        "detect_pii_entities"
+      ],
       "common_errors": [
         "Pasar el titulo en lugar del texto completo",
         "Olvidar LanguageCode en la llamada a la API",
         "Confundir BeginOffset/EndOffset con indices de lista",
         "No iterar correctamente sobre la lista de noticias"
       ],
-      "completion_criteria": "El estudiante completo las 3 funciones, detecto entidades y PII, y genero el resumen"
+      "completion_criteria": "El estudiante completo las 3 funciones, detecto entidades y PII, y genero el resumen",
+      "stepOrder": 2
     },
     {
       "id": "ex03",
@@ -48,14 +55,18 @@
       "file": "ejercicios/ex03_rekognition_labels.sh",
       "service": "Amazon Rekognition",
       "difficulty": "SEMI-GUIADO",
-      "key_apis": ["detect-labels", "detect-faces"],
+      "key_apis": [
+        "detect-labels",
+        "detect-faces"
+      ],
       "common_errors": [
         "Usar --image S3Object cuando la imagen es local",
         "Olvidar el prefijo fileb:// para imagenes locales",
         "No incluir --attributes ALL en detect-faces",
         "Ruta incorrecta a la imagen"
       ],
-      "completion_criteria": "El estudiante construyo ambos comandos desde cero y obtuvo labels y datos de rostros"
+      "completion_criteria": "El estudiante construyo ambos comandos desde cero y obtuvo labels y datos de rostros",
+      "stepOrder": 3
     },
     {
       "id": "ex04",
@@ -63,14 +74,18 @@
       "file": "ejercicios/ex04_rekognition_texto.py",
       "service": "Amazon Rekognition",
       "difficulty": "SEMI-GUIADO",
-      "key_apis": ["detect_text", "detect_moderation_labels"],
+      "key_apis": [
+        "detect_text",
+        "detect_moderation_labels"
+      ],
       "common_errors": [
         "No abrir la imagen en modo binario ('rb')",
         "Pasar la ruta como string en lugar de bytes al parametro Image",
         "Olvidar la estructura Image={'Bytes': ...}",
         "Confundir MinConfidence (float) con un porcentaje entero"
       ],
-      "completion_criteria": "El estudiante implemento ambas funciones, extrajo texto y analizo moderacion"
+      "completion_criteria": "El estudiante implemento ambas funciones, extrajo texto y analizo moderacion",
+      "stepOrder": 4
     },
     {
       "id": "ex05",
@@ -78,7 +93,11 @@
       "file": "ejercicios/ex05_audio_pipeline.py",
       "service": "Amazon Polly + Amazon Transcribe",
       "difficulty": "AUTONOMO",
-      "key_apis": ["synthesize_speech", "start_transcription_job", "get_transcription_job"],
+      "key_apis": [
+        "synthesize_speech",
+        "start_transcription_job",
+        "get_transcription_job"
+      ],
       "common_errors": [
         "No guardar el AudioStream correctamente (usar .read())",
         "Usar un VoiceId que no soporta espanol",
@@ -86,7 +105,8 @@
         "Olvidar especificar OutputFormat en Polly",
         "No crear el directorio data/output/ antes de guardar"
       ],
-      "completion_criteria": "El estudiante genero un archivo MP3 con Polly. Bonus: transcribio con Transcribe"
+      "completion_criteria": "El estudiante genero un archivo MP3 con Polly. Bonus: transcribio con Transcribe",
+      "stepOrder": 5
     },
     {
       "id": "ex06",
@@ -94,7 +114,12 @@
       "file": "ejercicios/ex06_pipeline_completo.py",
       "service": "Rekognition + Translate + Comprehend + Polly",
       "difficulty": "AUTONOMO",
-      "key_apis": ["detect_labels", "translate_text", "detect_sentiment", "synthesize_speech"],
+      "key_apis": [
+        "detect_labels",
+        "translate_text",
+        "detect_sentiment",
+        "synthesize_speech"
+      ],
       "common_errors": [
         "No manejar el formato de salida de detect_labels (lista de dicts)",
         "Olvidar SourceLanguageCode/TargetLanguageCode en Translate",
@@ -102,10 +127,10 @@
         "No encadenar correctamente la salida de un servicio como entrada del siguiente",
         "Intentar usar Translate con el cliente de Comprehend"
       ],
-      "completion_criteria": "El estudiante genero resultado.json y resumen.mp3 encadenando 4 servicios"
+      "completion_criteria": "El estudiante genero resultado.json y resumen.mp3 encadenando 4 servicios",
+      "stepOrder": 6
     }
   ],
-
   "hints_policy": {
     "approach": "socratic",
     "rules": [
@@ -130,7 +155,6 @@
       }
     ]
   },
-
   "exam_connections": {
     "ex01_sentiment": {
       "exam_topic": "Servicios de NLP de AWS (Domain 1, Task 1.2)",
@@ -189,7 +213,6 @@
       ]
     }
   },
-
   "error_help": {
     "AccessDeniedException": {
       "causa": "El usuario/rol de IAM no tiene permisos para el servicio",
