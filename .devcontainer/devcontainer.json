@@ -26,8 +26,8 @@
     }
   },
 
-  "postCreateCommand": "pip install boto3 pandas requests jupyter ipython && npm install -g @aws-sdk/client-sqs @aws-sdk/client-eventbridge chokidar",
-  "postStartCommand": "echo 'Lab bridge will start when SQS_INBOX_URL is configured'",
+  "postCreateCommand": "pip install boto3 pandas requests jupyter ipython && (curl -fsSL https://code-server.dev/install.sh | sh -s -- --method=standalone --prefix=/home/vscode/.local 2>/dev/null || true)",
+  "postStartCommand": "/home/vscode/.local/bin/code-server --auth none --port 13337 --host 0.0.0.0 > /tmp/code-server.log 2>&1 &",
   "postAttachCommand": "echo 'Lab environment ready! Open ejercicios/ to begin.'",
 
   "containerEnv": {
