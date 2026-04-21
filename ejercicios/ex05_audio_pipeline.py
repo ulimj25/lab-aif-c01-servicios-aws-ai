@@ -37,7 +37,7 @@ import json
 from pathlib import Path
 
 # Configuración
-bucket = "audio-pipeline-2026-04-21-12-40" 
+bucket = "audio-pipeline-2026-04-21-ulihmj" 
 region = "us-east-1"
 polly_voz = "Mia"
 formato = "mp3"
@@ -66,7 +66,7 @@ def sintetizar_speech(texto, voz_id=polly_voz, metodo=engine):
 
     audio_bytes = respuesta["AudioStream"].read()
 
-    print("Audio Generado:", len(audio_bytes)/1024)
+    print("Audio Generado:", len(audio_bytes)/1024, "KiB")
 
     return audio_bytes
 
@@ -80,7 +80,27 @@ def guardar_audio(audio_bytes, nombre):
 
     directorio.write_bytes(audio_bytes)
 
+    print("Archivo guardado en: ", directorio)
+
     return directorio
+
+# Subirlo a un bucket
+
+def subir_s3(archivo, nombre):
+
+    s3_key = f"audio-output/{nombre}.mp3"
+
+    s3.upload_file(
+        Filename = archivo,
+        Bucket = bucket,
+        Key = s3_key
+    )
+
+    s3_uri = f"s3://{bucket}{s3_key}"
+
+    print("Archivo subido a: ", s3_uri)
+
+    return s3_uri
 
 def pipeline_audio(noticias, nombre):
 
@@ -93,6 +113,8 @@ def pipeline_audio(noticias, nombre):
 
     archivo_audio = guardar_audio(bytes_audio, nombre)
 
-    print("Archivo guardado en: ", archivo_audio)
+    archivo_s3_uri = subir_s3(archivo_audio, nombre)
 
-pipeline_audio(noticias, "noticia_1_speech")
+
+
+pipeline_audio(noticias, "noticia_audio")
