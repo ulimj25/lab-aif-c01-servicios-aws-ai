@@ -160,13 +160,13 @@ resumen = {}
 # Pista: Llama a detectar_entidades() para cada noticia
 # Pista: Usa set() para obtener tipos unicos
 for i, noticia in enumerate(noticias):
-    entidades = detectar_entidades(___['texto'])
+    entidades = detectar_entidades(noticias[i]['texto'])
 
-    tipos_unicos = list(set([e[___] for e in entidades]))
+    tipos_unicos = list(set([e['Type'] for e in entidades]))
 
     resumen[f"noticia_{i + 1}"] = {
         'titulo': noticia['titulo'],
-        'entidades': len(___),
+        'entidades': len(entidades),
         'tipos': tipos_unicos
     }
 
