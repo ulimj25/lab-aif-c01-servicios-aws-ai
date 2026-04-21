@@ -47,8 +47,11 @@ echo ""
 
 echo "--- Tarea 1: Labels en ciudad.jpg ---"
 
-# >>> TU COMANDO AQUI <<<
-
+aws rekognition detect-labels \
+    --image-bytes fileb:///home/ula/FIMl6fHXEAYIJ1v.jpg \
+    --min-confidence 80 \
+    --region us-east-1 \
+    --max-labels 10
 
 echo ""
 
@@ -68,8 +71,10 @@ echo ""
 
 echo "--- Tarea 2: Faces en equipo.jpg ---"
 
-# >>> TU COMANDO AQUI <<<
-
+aws rekognition detect-faces \
+    --image-bytes fileb:///home/ula/erra.jpeg \
+    --attributes "ALL" \
+    --region us-east-1
 
 echo ""
 echo "=========================================="
